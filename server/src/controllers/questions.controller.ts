@@ -1,8 +1,10 @@
 // questions.controller.ts
 
 import { Request, Response } from 'express';
-import questions from '../../questions.json';
+import quizzesData from '../../quizzes.json';
+import { type Quizzes } from '../utils/quiz';
 
+const quizzes = quizzesData as Quizzes;
 export const getQuestion = (req: Request, res: Response) => {
     try {
         const quizId = req.params.quizId;
@@ -12,7 +14,7 @@ export const getQuestion = (req: Request, res: Response) => {
 
         if (!questionNumber) return res.status(400).json({ message: 'Question number is required' });
 
-        const quiz = questions[quizId as keyof typeof questions];
+        const quiz = quizzes[quizId as keyof typeof quizzes];
 
         if (!quiz) return res.status(404).json({ message: 'Quiz not found' });
 
@@ -22,9 +24,7 @@ export const getQuestion = (req: Request, res: Response) => {
 
         if (!question) return res.status(404).json({ message: 'Question not found' });
 
-        return (question.hint) ? 
-                res.json({ question: question.question, hint: question.hint }) :
-                res.json({ question: question.question, hint: null });
+        return res.json({ question: question.question, hint: question.hint ?? null });
 
     } catch (error) {
         console.error('Error fetching questions:', error);
@@ -44,7 +44,7 @@ export const checkAnswer = (req: Request, res: Response) => {
 
         if (!answer) return res.status(400).json({ message: 'Answer is required' });
         
-        const quiz = questions[quizId as keyof typeof questions];
+        const quiz = quizzes[quizId as keyof typeof quizzes];
 
         if (!quiz) return res.status(404).json({ message: 'Quiz not found' });
 
