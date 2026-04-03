@@ -1,0 +1,32 @@
+{
+  "0001": [
+    {
+      "username": "abcd"
+    },
+    {
+      "username": "cdab"
+    },
+    {
+      "username": "abcdo"
+    },
+    {
+      "username": "asphalt"
+    }
+  ],
+  "0002": [
+    {
+      "username": "abcd"
+    },
+    {
+      "username": "cdab"
+    }
+  ],
+  "DGMIvBwO": [
+    {
+      "username": "abcd"
+    },
+    {
+      "username": "cdab"
+    }
+  ]
+}

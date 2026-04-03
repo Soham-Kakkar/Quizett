@@ -54,9 +54,13 @@ export const checkAnswer = (req: Request, res: Response) => {
 
         if (!question) return res.status(404).json({ message: 'Question not found' });
 
-        const isCorrect = question.answer.toLowerCase() === answer.toLowerCase();
+        const userAns = String(answer).trim().toLowerCase();
+        const correctAns = String(question.answer).trim().toLowerCase();
+        const isCorrect = userAns === correctAns;
+        const points = (question as any).points && typeof (question as any).points === 'number' ? (question as any).points : 1;
+        const rawScore = isCorrect ? points : 0;
 
-        res.json({ correct: isCorrect });
+        res.json({ correct: isCorrect, rawScore });
 
     } catch (error) {
         console.error('Error checking answer:', error);
